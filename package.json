@@ -1,5 +1,5 @@
 {
-  "name": "webapp-Mikao",
+  "name": "mikao",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,10 +10,20 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "antd": "^3.26.1",
+    "color": "^3.1.2",
+    "flux": "^3.1.3",
+    "history": "^4.10.1",
     "react": "^16.12.0",
+    "react-custom-properties": "^1.2.0",
     "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "typescript": "~3.7.2"
+    "react-scrollbar": "^0.5.6",
+    "react-virtualized": "^9.21.2",
+    "reqwest": "^2.0.5",
+    "typescript": "~3.7.2",
+    "when": "^3.7.8"
   },
   "scripts": {
     "start": "react-scripts start",

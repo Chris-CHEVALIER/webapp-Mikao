@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ReactDOM from 'react-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { ConfigProvider } from 'antd';
+import frFR from 'antd/lib/locale-provider/fr_FR';
+import { ConfigProvider as AppLocaleProvider} from './locale/LocaleFactory';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import LoginActions from './actions/LoginActions';
 
-export default App;
+import Layout from './views/Layout.jsx';
+import Login from './views/Login.jsx';
+import ResetPassword from './views/ResetPassword.jsx';
+import ResetPasswordRequest from './views/ResetPasswordRequest.jsx';
+
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+
+const routes = (
+    <ConfigProvider locale={frFR}>
+        <AppLocaleProvider>
+            <Router>
+                <Switch>
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/reset-password" component={ResetPassword} />
+                    <Route exact path="/reset-password-request" component={ResetPasswordRequest} />
+                    <ProtectedRoute path="/" component={Layout} />
+                </Switch>
+            </Router>
+        </AppLocaleProvider>
+    </ConfigProvider>
+);
+
+LoginActions.loginUserIfRemembered();
+
+export default routes;
