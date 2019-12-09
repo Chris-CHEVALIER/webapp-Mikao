@@ -1,0 +1,68 @@
+.notification-bell {
+    position: relative;
+
+    .notification-button {
+        padding: 0 1rem;
+        .anticon {
+            font-size: 16px;
+        }
+        .ant-badge-count {
+            box-sizing: border-box;
+            font-size: 10px;
+            min-width: 15px;
+            line-height: 15px;
+            height: 15px;
+            padding: 0 4px;
+        }
+    }
+
+    .notifications {
+        @include box-shadow( 0 2px 8px rgba(0,0,0,.2) );
+
+        position: absolute;
+        top: 2rem;
+        right: 0;
+        overflow: visible;
+        width: 300px;
+        z-index: 100;
+        cursor: pointer;
+    }
+}
+
+.notification-bell .notifications .notification {
+    background-color: $light-gray;
+    padding: .5rem;
+    border-bottom: 1px solid $white;
+    border-radius: 2px;
+
+    .notification-icons{
+        float: right;
+        display: none;
+    }
+    .notification-title,
+    .notification-icons,
+    .notification-content{
+        line-height: 1rem;
+    }
+    .notification-title {
+        font-weight: bold;
+    }
+
+    &:hover {
+        background-color: darken($light-gray, 10%);
+    }
+
+    &:hover .notification-icons {
+        display: block;
+        cursor: pointer;
+    }
+
+    &:hover .notification-icons:active {
+        color: $black;
+    }
+
+    &:active {
+        background-color: darken($light-gray, 15%);
+        color: $black;
+    }
+}

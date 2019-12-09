@@ -1,0 +1,47 @@
+.display-form {
+    .field {
+        margin-bottom: 8px;
+    }
+    .label {
+        &::after {
+            content: ':';
+            margin: 0 8px 0 4px;
+        }
+    }
+}
+
+.display-form .panel {
+    margin: 16px 0;
+}
+
+.ant-form .panel {
+    margin-bottom: 12px;
+}
+
+.display-form .panel,
+.ant-form .panel {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #e8e8e8;
+
+    .title {
+        font-size: 14px;
+        color: $medium-gray;
+    }
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        .field {
+            width: 50%;
+        }
+    }
+
+    .content > .ant-collapse,
+    .content > .ant-table-wrapper {
+        width: calc(100% + 16px);
+        margin: 0 -8px -9px -8px;
+    }
+    .content > .ant-collapse {
+        margin-top: -8px;
+    }
+}

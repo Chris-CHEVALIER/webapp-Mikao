@@ -1,0 +1,5 @@
+#app {
+    .ant-menu .ant-menu-item-selected, .ant-menu-submenu-popup .ant-menu-item-selected {
+        @include variable(background-color, --theme-primary-color, $primary-color);
+    }
+}

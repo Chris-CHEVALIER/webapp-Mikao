@@ -1,11 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import frFR from 'antd/lib/locale-provider/fr_FR';
 import { ConfigProvider as AppLocaleProvider} from './locale/LocaleFactory';
 
-import LoginActions from './actions/LoginActions';
+//import LoginActions from './actions/LoginActions';
 
 import Layout from './views/Layout.jsx';
 import Login from './views/Login.jsx';
@@ -29,6 +28,6 @@ const routes = (
     </ConfigProvider>
 );
 
-LoginActions.loginUserIfRemembered();
+//LoginActions.loginUserIfRemembered();
 
 export default routes;

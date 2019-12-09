@@ -1,0 +1,165 @@
+$table-border-color: #e9e9e9;
+$table-header-background: #f7f7f7;
+
+.ant-table-spin-holder > .anticon {
+    margin-top: 50px;
+    font-size: 24px;
+    @include variable(color, --theme-primary-color, $primary-color);
+}
+
+.row-clickable .ant-table-tbody .ant-table-row {
+    &:hover {
+        cursor: pointer;
+    }
+    &:active {
+        @include variable(background-color, --theme-mild-primary-color, $mild-primary-color);
+        transition: all 0;
+    }
+}
+
+.ant-table .align-right {
+    text-align: right;
+}
+
+.ant-table-scroll > .ant-table-header {
+    overflow: hidden !important;
+    padding-bottom: 20px !important;
+    padding-right: 16px;
+}
+.ant-table-scroll > .ant-table-footer {
+    padding-right: 26px;
+}
+
+.ant-table-thead {
+    > tr > th {
+        padding: 8px;
+        vertical-align: bottom;
+        color: rgba(0, 0, 0, 0.65);
+    }
+
+    > tr > th,
+    > tr > th.ant-table-column-sort {
+        background: $table-header-background;
+    }
+
+    > tr > th.ant-table-column-sort {
+        color: #108ee9;
+    }
+
+    &.large > tr > th {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    &.small > tr > th,
+    > tr.small > th {
+        padding: 4px;
+    }
+
+    > tr.bordered > th {
+        border-right: 1px solid $table-border-color;
+        border-bottom: 1px solid $table-border-color;
+    }
+}
+
+.ant-table-footer {
+    padding: 8px;
+}
+
+.ant-table-tbody {
+    background: $white;
+
+    > tr:hover > td {
+        background: none;
+    }
+
+    > tr:hover {
+        @include variable(background-color, --theme-light-primary-color, $light-primary-color);
+    }
+
+    > tr {
+        > td,
+        > th {
+            padding: 8px;
+            border-bottom: 1px solid $table-border-color;
+            position: relative;
+        }
+
+        > th {
+            font-weight: normal;
+            color: rgba($black, 0.9);
+        }
+    }
+}
+// DataTable
+
+.ant-pagination {
+    &-item,
+    &-next,
+    &-prev {
+        &:hover {
+            @include variable(border-color, --theme-primary-color, $primary-color);
+        }
+
+        &:hover a {
+            @include variable(color, --theme-primary-color, $primary-color);
+        }
+
+        &-active {
+            @include variable(border-color, --theme-primary-color, $primary-color);
+            @include variable(background-color, --theme-primary-color, $primary-color);
+        }
+
+        &-active a,
+        &-active:hover a {
+            color: #fff;
+        }
+    }
+
+    &-disabled:hover {
+        border-color: #d9d9d9;
+
+        a {
+            color: rgba(0, 0, 0, 0.25);
+        }
+    }
+}
+
+.ant-table-tbody .table-subtitle {
+    @include variable(background-color, --theme-primary-color, $primary-color);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0;
+}
+
+table td.disabled,
+table th.disabled {
+    background: rgba($medium-gray, 0.5) !important;
+}
+
+table .editable-cell {
+    &:not(.disabled):hover {
+        @include variable(background-color, --theme-vlight-primary-color, $vlight-primary-color);
+        cursor: pointer;
+    }
+
+    &:not(.disabledConge):hover {
+        @include variable(background-color, --theme-vlight-primary-color, $vlight-primary-color);
+        cursor: pointer;
+    }
+
+    &:not(.disabled):active {
+        @include variable(background-color, --theme-light-primary-color, $light-primary-color);
+    }
+
+    &:not(.disabledConge):active {
+        @include variable(background-color, --theme-light-primary-color, $light-primary-color);
+    }
+}
+
+table tr.success > td,
+table tr.success > th,
+table th.success,
+table td.success {
+    background: rgba($success-color, 0.5);
+}

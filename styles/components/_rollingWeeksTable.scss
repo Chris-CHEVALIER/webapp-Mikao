@@ -1,0 +1,8 @@
+.rolling-weeks-table {
+    .day-clickable {
+        cursor: pointer;
+    }
+    .day-selected {
+        @include variable(background-color, --theme-mild-primary-color, $mild-primary-color);
+    }
+}

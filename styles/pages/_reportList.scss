@@ -1,0 +1,30 @@
+.report-list {
+    .actions {
+        text-align: right;
+    }
+    .actions > button {
+        display: inline-block;
+        margin-left: 8px;
+    }
+}
+
+.report-container {
+    .report-title {
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+    .report-date {
+        color: rgba(0, 0, 0, .4);
+        font-size: 12px;
+    }
+    .report-footer {
+        font-style: italic;
+    }
+
+    .report-media-title {
+        font-weight: bold;
+    }
+    .report-media-list a {
+        display: block;
+    }
+}

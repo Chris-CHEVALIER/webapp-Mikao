@@ -1,0 +1,22 @@
+.cameras {
+    .panel-content {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .camera {
+        margin: 0 32px 32px 0;
+        position: relative;
+        background: $light-gray;
+
+        .camera-title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 8px 0 16px 8px;
+
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0));
+            color: $white;
+        }
+    }
+}

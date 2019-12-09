@@ -1,0 +1,25 @@
+// Settings of the Application Style
+
+@import 'font_TitilliumWeb';
+
+$font-family: 'Titillium Web', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+$primary-color: #5dc4e2;
+$vlight-primary-color: rgba($primary-color, 0.1);
+$light-primary-color: rgba($primary-color, 0.2);
+$mild-primary-color: rgba($primary-color, 0.5);
+$lightened-primary-color: lighten($primary-color, 7%);
+$darkened-primary-color: darken($primary-color, 7%);
+$primary-color: #5dc4e2;
+$secondary-color: #5dc4e2;
+$light-secondary-color: #5dc4e2;
+$danger-color: #f04134;
+$success-color: #29b55c;
+$info-color: #287fb5;
+
+
+$black: #1e2942;
+$white: #fdfdfd;
+$dark-gray: #505050;
+$medium-gray: #a5a5a5;
+$light-gray: #d0d0d0;

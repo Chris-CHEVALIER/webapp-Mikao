@@ -1,0 +1,36 @@
+.role-form {
+    .label {
+        display: inline-block;
+        line-height: 32px;
+        margin-right: 8px;
+
+        width: 125px;
+    }
+    .ant-btn-info {
+        width: 16px;
+        height: 16px;
+        line-height: 14px;
+    }
+    .label::after {
+        content: ':';
+        float: right;
+    }
+
+    .group {
+        margin-left: 16px;
+
+        .ant-form-item {
+            display: inline-block;
+            width: 18%;
+            margin-bottom: 0;
+        }
+    }
+
+    .group .group {
+        margin-top: -8px;
+        .label {
+            color: rgba($black, 0.5);
+            width: 109px;
+        }
+    }
+}

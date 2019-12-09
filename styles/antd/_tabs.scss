@@ -1,0 +1,10 @@
+.ant-tabs-nav {
+    .ant-tabs-tab:hover,
+    .ant-tabs-tab-active {
+        @include variable(color, --theme-primary-color, $primary-color);
+    }
+
+    .ant-tabs-ink-bar {
+        @include variable(background-color, --theme-primary-color, $primary-color);
+    }
+}

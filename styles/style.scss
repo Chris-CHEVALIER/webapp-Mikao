@@ -1,0 +1,43 @@
+body > .app-container {
+    min-height: 100%;
+    height: 100%;
+}
+
+@import 'mixins';
+
+@import 'settings';
+
+:root {
+    --theme-primary-color: $primary-color;
+    --theme-ligth-primary-color: $light-primary-color;
+    --theme-vligth-primary-color: $vlight-primary-color;
+    --theme-mild-primary-color: $mild-primary-color;
+    --theme-lightened-primary-color: $lightened-primary-color;
+    --theme-darkened-primary-color: $darkened-primary-color;
+}
+
+
+@import './antd/antd';
+
+@import 'utils';
+@import 'layout';
+@import 'forms';
+
+@import 'notificationBell';
+
+@import './pages/login';
+@import './pages/home';
+@import './pages/missionList';
+@import './pages/reportList';
+@import './pages/sessionList';
+
+@import './components/slider';
+@import './components/displayForm';
+@import './components/loading';
+@import './components/panel';
+@import './components/company/companyForm';
+@import './components/permission/roleForm';
+@import './components/tableColumnFilter';
+@import './components/charts';
+@import './components/rollingWeeksTable';
+@import './components/svgMap';

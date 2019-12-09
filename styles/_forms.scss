@@ -1,0 +1,129 @@
+// Styles used in Ant Designe Forms
+
+
+// Full Size Forms are forms that takes all the space in his parent.
+
+$form-max-width: 900px;
+
+.full-size-form {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+
+    .form-content {
+        padding-bottom: 70px;
+        overflow-x: hidden;
+        margin: auto;
+        max-width: $form-max-width;
+    }
+
+    .form-action-barre {
+        @include box-shadow( 0 0 4px 0 rgba(0,0,0,.3) );
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #ececec;
+        margin: 0;
+        padding: 5px 10px;
+        z-index: 1000;
+    }
+
+}
+
+.form-group-title {
+    border-bottom: 1px solid rgb(217, 217, 217);
+    margin-bottom: 8px;
+}
+
+.window-content > .full-size-form {
+    max-height: calc(100% - 17.8px);
+    max-width: calc(100% + 20px);
+    margin: -10px;
+    padding: 10px;
+}
+
+// Inline Form Groups are used inside a "Non inline" Form (e.g: Horizontal) to add some items in line.
+// For example, we use it for the Contacts "Phones" and "Emails"
+.inline-form-group {
+    .ant-row::before,
+    .ant-row::after {
+        display: initial;
+    }
+    .delete-button {
+        float: right;
+        margin: 6px 0 0 5px;
+    }
+}
+.inline-form-group.with-delete-button > .ant-form-item:last-of-type {
+    @for $i from 1 through 24 {
+        .ant-form-item-control-wrapper.ant-col-#{$i} {
+            width: calc( #{percentage($i/24)} - 32px);
+        }
+    }
+}
+
+.inline-form-group.with-delete-button > .ant-row > div:last-of-type {
+    @for $i from 1 through 24 {
+        &.ant-col-#{$i} {
+            width: calc( #{percentage($i/24)} - 32px);
+        }
+    }
+}
+
+// Labels
+.ant-form-item-label {
+    line-height: 24px;
+}
+.ant-form-item {
+    margin-bottom: 12px;
+}
+
+// DatePickers
+.ant-calendar-picker {
+    width: 100%;
+}
+
+// Markdown
+.form-field-markdown {
+    margin-top: -12px;
+    margin-bottom: 12px;
+
+    background-color: $white;
+    padding: 6px 7px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+
+    h1 {
+        font-size: 18px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    ul {
+        list-style: disc outside;
+        padding-left: 24px;
+
+        ul {
+            list-style-type: circle;
+        }
+    }
+}
+.ant-form-item.hidden .ant-form-item-control-wrapper {
+    display: none;
+}
+
+
+.ant-select-disabled {
+    .ant-select-selection {
+        background: inherit;
+    }
+
+    .ant-select-selection--multiple .ant-select-selection__choice {
+        color: rgba(0, 0, 0, 0.65);
+        background-color: #fafafa;
+    }
+}

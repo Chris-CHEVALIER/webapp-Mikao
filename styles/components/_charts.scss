@@ -1,0 +1,9 @@
+.chart .title {
+    text-align: center;
+}
+
+.chart.chart-group {
+    .line {
+        @include variable(stroke, --theme-primary-color, $primary-color);
+    }
+}

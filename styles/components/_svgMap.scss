@@ -1,0 +1,66 @@
+.svg-map-container {
+    position: relative;
+    background: #d7fdff;
+
+    .svg-map-zoom {
+        position: absolute;
+        top: 0;
+        right: 15px;
+        width: 20px;
+
+        .svg-map-slider {
+            height: 150px;
+            width: 100%;
+        }
+
+        .svg-map-zoom-reset-btn {
+            margin-top: 8px;
+            margin-left: -6px;
+            &:hover,
+            &:active,
+            &:focus {
+                @include variable(color, --theme-primary-color, $primary-color);
+                @include variable(border-color, --theme-primary-color, $primary-color);
+            }
+        }
+    }
+    
+}
+
+.svg-map {
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.svg-map text {
+    fill: #787878;
+    font-size: 2px;
+}
+
+.svg-map .in {
+    stroke: #787878;
+    @include variable(fill, --theme-primary-color, $primary-color);
+    stroke-linejoin: round;
+    stroke-width: .2px;
+}
+
+.svg-map .out {
+    stroke: #787878;
+    @include variable(fill, --theme-primary-color, $primary-color);
+    stroke-linejoin: round;
+    stroke-width: .2px;
+}
+
+.svg-map .drawing-polygon {
+    fill: none;
+    @include variable(stroke, --theme-primary-color, $primary-color);
+    stroke-width: .2px;
+}
+
+.svg-map .drawing-polygon-point {
+    @include variable(fill, --theme-primary-color, $primary-color);
+}

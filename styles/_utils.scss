@@ -1,0 +1,33 @@
+// Here are some utils classes
+
+.pull-right {
+    float: right;
+}
+
+
+.hightlight-box {
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 2px 16px;
+    background: white;
+}
+
+div[role='button']:focus {
+    outline: none;
+}
+
+.success-icon,
+.success-msg {
+    color: $success-color;
+}
+.alert-icon {
+    color: $danger-color;
+}
+
+.actions-row {
+    display: flex;
+    margin-bottom: 16px;
+    .ant-btn {
+        margin-right: 8px;
+    }
+}

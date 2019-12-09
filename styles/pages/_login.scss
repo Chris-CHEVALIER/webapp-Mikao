@@ -1,0 +1,22 @@
+// Login
+.login-page {
+    height: 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    @include variable(background-color, --theme-primary-color, #3eb7ec);
+    background-image: var(--theme-login-image);
+
+    > div {
+        background: rgba($white, .9);
+        padding: 16px 36px 36px 36px;
+    }
+    a.reset-password {
+        text-align: center;
+        display: block;
+    }
+}
+.login-form-button {
+    width: 100%;
+}
