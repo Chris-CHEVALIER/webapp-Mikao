@@ -10,25 +10,29 @@ class LoginActions {
   onLoginComplete = () => {};
   onLogoutComplete = () => {};
 
-  loginUser = (jwt, user, securityContext, login) => {
-    const savedJwt = LocalStorage.getItem("jwt");
+  loginUser = (accessToken, refreshToken, login) => {
+    LocalStorage.setItem('accessToken', accessToken);
+    LocalStorage.setItem('refreshToken', refreshToken);
 
-    TokenContainer.set(jwt);
+    TokenContainer.set(accessToken);
+    
+    const savedAccessToken = LocalStorage.getItem("accessToken");
+    //const savedRefreshToken = LocalStorage.getItem("refreshToken");
 
     AppDispatcher.dispatch({
       type: Login.LOGIN_USER,
       payload: {
-        jwt,
-        user,
-        securityContext,
+        accessToken,
+        refreshToken,
+        //securityContext,
         login
       }
     });
 
-    if (savedJwt !== jwt) {
-      LocalStorage.setItem("jwt", jwt);
-      LocalStorage.setItem("user", JSON.stringify(user));
-      LocalStorage.setItem("security-context", JSON.stringify(securityContext));
+    if (savedAccessToken !== accessToken) {
+      LocalStorage.setItem("accessToken", accessToken);
+      //LocalStorage.setItem("user", JSON.stringify(user));
+      //LocalStorage.setItem("security-context", JSON.stringify(securityContext));
     }
     if (login) {
       LocalStorage.setItem("login", login);
@@ -40,13 +44,13 @@ class LoginActions {
     // Check is user is remembered
     new Promise((resolve, reject) => {
         this.isUserRemembered()
-          .then(({ jwt, user, securityContext }) => {
-            const isRemembered = !!jwt && !!user && !!securityContext;
+          .then(({ accessToken, user/*, securityContext */}) => {
+            const isRemembered = !!accessToken && !!user /*&& !!securityContext*/;
             if (isRemembered) {
               this.loginUser(
-                jwt,
+                accessToken,
                 JSON.parse(user),
-                JSON.parse(securityContext)
+                //JSON.parse(securityContext)
               );
             }
             resolve(isRemembered);
@@ -65,18 +69,18 @@ class LoginActions {
           }
         });
       });
-      LocalStorage.getItem("jwt")
-        .then(jwt => {
+      LocalStorage.getItem("accessToken")
+        .then(accessToken => {
           LocalStorage.getItem("user")
             .then(user => {
-              LocalStorage.getItem("security-context")
-                .then(securityContext => {
+              //LocalStorage.getItem("security-context")
+                //.then(securityContext => {
                   LocalStorage.getItem("login")
                     .then(login => {
                       resolve({
-                        jwt,
+                        accessToken,
                         user,
-                        securityContext,
+                        //securityContext,
                         login
                       });
                     })
@@ -85,14 +89,13 @@ class LoginActions {
                 .catch(e => reject(e));
             })
             .catch(e => reject(e));
-        })
-        .catch(e => reject(e));
-    });
+        });
 
   logoutUser = () => {
-    LocalStorage.removeItem("jwt");
+    LocalStorage.removeItem("accessToken");
+    LocalStorage.removeItem("refreshToken");
     LocalStorage.removeItem("user");
-    LocalStorage.removeItem("security-context");
+    //LocalStorage.removeItem("security-context");
     LocalStorage.removeItem("created-at");
     AppDispatcher.dispatch({
       type: Login.LOGOUT_USER,

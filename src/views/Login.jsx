@@ -45,8 +45,7 @@ export default class Login extends React.Component {
           loading: false,
           redirectToReferrer: true
         });
-      })
-      .catch(this.handleError);
+      }).catch(this.handleError);
   };
 
   handleError = err => {

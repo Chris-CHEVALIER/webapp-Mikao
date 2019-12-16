@@ -5,7 +5,7 @@ import ScrollArea from "react-scrollbar";
 import { Button, Menu, Icon, Layout, Popover, Avatar } from "antd";
 
 import LoginActions from "actions/LoginActions";
-import LoginStore from "stores/LoginStore";
+//import LoginStore from "stores/LoginStore";
 
 import Home from "views/Home.jsx";
 import Configuration from "views/Configuration.jsx";
@@ -40,7 +40,7 @@ export default class AppLayout extends React.Component {
   };
 
   render() {
-    const user = LoginStore.getUser();
+    const user = {"firstName":"Chris", "lastName": "Chevalier"} // LoginStore.getUser(); // @TODO: Récupérer correctement l'utilisateur connecté
 
     const selectedMenu = this.props.location.pathname;
 

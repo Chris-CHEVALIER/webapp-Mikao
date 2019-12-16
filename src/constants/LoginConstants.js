@@ -2,7 +2,7 @@ import BaseUrlContacts from 'constants/BaseUrlConstants';
 
 export default {
     BASE_URL: BaseUrlContacts.BASE_URL,
-    LOGIN_URL: BaseUrlContacts.BASE_URL + 'auth-tokens',
+    LOGIN_URL: BaseUrlContacts.BASE_URL + 'token',
     SIGNUP_URL: BaseUrlContacts.BASE_URL + 'users',
 
     LOGIN_USER: 'LOGIN_USER',

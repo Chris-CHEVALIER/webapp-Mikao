@@ -6,15 +6,17 @@ function reduce(state, action) {
     let newState = Object.assign({}, state);
     switch (type) {
     case Login.LOGIN_USER:
-        newState.jwt = payload.jwt;
+        newState.accessToken = payload.accessToken;
+        newState.refreshToken = payload.refreshToken;
         newState.user = payload.user;
-        newState.securityContext = payload.securityContext;
+        //newState.securityContext = payload.securityContext;
         newState.login = payload.login;
         break;
     case Login.LOGOUT_USER:
         newState.user = null;
-        newState.jwt = null;
-        newState.securityContext = null;
+        newState.accessToken = null;
+        newState.refreshToken = null;
+        //newState.securityContext = null;
         break;
     case Login.RECEIVE_USER_LOGIN:
         newState.login = payload.login;
@@ -29,8 +31,9 @@ class LoginStore extends BaseStore {
     getInitialState() {
         return {
             user: null,
-            jwt: null,
-            secutiryContext: null,
+            accessToken: null,
+            refreshToken: null,
+            //secutiryContext: null,
             login: null,
         };
     }
@@ -41,13 +44,17 @@ class LoginStore extends BaseStore {
         return this.getState().user;
     }
 
-    getJwt() {
-        return this.getState().jwt;
+    getAccessToken() {
+        return this.getState().accessToken;
     }
 
-    getSecurityContext() {
-        return this.getState().securityContext;
+    getRefreshToken() {
+        return this.getState().refreshToken;
     }
+
+    /*getSecurityContext() {
+        return this.getState().securityContext;
+    }*/
 
     getLogin() {
         return this.getState().login;
