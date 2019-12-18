@@ -96,6 +96,34 @@ export default {
       role: "Role",
       type: "Type"
     },
+    treatments: "Soins",
+    treatment: {
+      name: "Soin",
+      add: {
+        _: "Ajouter un soin",
+        success: "Soin __name__ créé.",
+        error: "Une erreur est survenue",
+      },
+      update: {
+        _: "Modifier un soin",
+        success: 'Soin "__name__" modifiée',
+        error: "Une erreur est survenue"
+      },
+    },
+    symptoms: "Symptomes",
+    symptom: {
+      name: "Symptome",
+      add: {
+        _: "Ajouter un symptome",
+        success: "Symptome __name__ créé.",
+        error: "Une erreur est survenue",
+      },
+      update: {
+        _: "Modifier un symptome",
+        success: 'Symptome "__name__" modifiée',
+        error: "Une erreur est survenue"
+      },
+    }
   },
 
   // Ant Design
