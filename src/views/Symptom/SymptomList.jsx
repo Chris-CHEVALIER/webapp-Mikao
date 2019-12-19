@@ -125,6 +125,7 @@ export default class SymptomList extends React.Component {
       createSymptomVisible: true
     });
   };
+  
   hideCreateSymptomModal = () => {
     this.setState({
       createSymptomVisible: false

@@ -30,4 +30,4 @@ const routes = (
 
 //LoginActions.loginUserIfRemembered();
 
-export default routes;
+export default {routes};
