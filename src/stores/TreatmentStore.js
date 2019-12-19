@@ -58,7 +58,9 @@ class TreatmentStore extends EntityStoreBase {
     /**
      * Get treatments.
      */
-    getTreatments = () => this.getState().entities;
+    getTreatments = () =>  {
+        return this.getState().entities;
+    }
 
     /**
      * Get the identifier of the current treatment.

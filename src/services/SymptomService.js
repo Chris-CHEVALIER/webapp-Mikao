@@ -4,50 +4,49 @@ import axios from 'axios';
 
 const URL = `${BaseUrlConstants.BASE_URL}`;
 
-class TreatmentService extends ServiceBase {
+class SymptomService extends ServiceBase {
     constructor() {
         super(URL);
     }
 
     /**
-     * Get a treatment by unique identifier.
-     * @param {number} treatmentId The identifier of the treatment.
+     * Get a symptom by unique identifier.
+     * @param {number} symptomId The identifier of the symptom.
      * @returns {Promise} A promise to handle the request ascynchronously.
      */
-
-    getById(treatmentId) {
+    getById(symptomId) {
         return axios({
-            url: `${BaseUrlConstants.BASE_URL}treatments/${treatmentId}`,
+            url: `${BaseUrlConstants.BASE_URL}symptoms/${symptomId}`,
             method: 'GET',
         });
     }
     
     /**
-     * Get all treatments.
+     * Get all symptoms.
      *
      * @returns {Promise} A promise to handle the request ascynchronously.
      */
     getAll() {
         return axios({
-            url: `${BaseUrlConstants.BASE_URL}treatments/`,
+            url: `${BaseUrlConstants.BASE_URL}symptoms/`,
             method: "get",
             
         });
     }
 
     /**
-     * Post a new treatment.
-     * @param {Object} treatment The treatment to create.
+     * Post a new symptom.
+     * @param {Object} symptom The symptom to create.
      * @returns {Promise} A promise to handle the request ascynchronously.
      */
-    post(treatment) {
-        console.log(treatment);
-        //let data = new FormData();
-        //data.set('name', treatment.name);
+    post(symptom) {
+        console.log("POST");
+        
+        console.log(symptom);
         return axios({
-            url: `${BaseUrlConstants.BASE_URL}treatments/`,
+            url: `${BaseUrlConstants.BASE_URL}symptoms/`,
             method: 'POST',
-            data: treatment,
+            data: symptom,
         });
     }
 
@@ -59,14 +58,14 @@ class TreatmentService extends ServiceBase {
      */
     patch(id, patch) {
         return axios({
-            url: `${BaseUrlConstants.BASE_URL}treatments/${id}/`,
+            url: `${BaseUrlConstants.BASE_URL}symptoms/${id}/`,
             method: 'PATCH',
             data: patch,
         });
     }
 
     /**
-     * Delete an existing host treatment.
+     * Delete an existing host symptom.
      * @param {number} id The identifier of the user.
      * @returns {Promise} A promise to handle the request ascynchronously.
      */
@@ -74,10 +73,10 @@ class TreatmentService extends ServiceBase {
         console.log("remove", id);
         
         return axios({
-            url: `${BaseUrlConstants.BASE_URL}treatments/${id}/`,
+            url: `${BaseUrlConstants.BASE_URL}symptoms/${id}/`,
             method: 'DELETE',
         });
     }
 }
 
-export default new TreatmentService();
+export default new SymptomService();

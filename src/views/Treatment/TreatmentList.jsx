@@ -12,9 +12,9 @@ import Locale, { Locale as LocaleComponent } from "locale/LocaleFactory";
 import ArrayService from "services/utils/ArrayService";
 import StringService from "services/utils/StringService";
 import FilterService from "services/utils/FilterService";
-import SecurityService from "services/SecurityService";
-import Resource from "constants/Resource";
-import Access from "constants/AccessLevel";
+//import SecurityService from "services/SecurityService";
+//import Resource from "constants/Resource";
+//import Access from "constants/AccessLevel";
 
 import TreatmentActions from "actions/TreatmentActions";
 import TreatmentStore from "stores/TreatmentStore";
@@ -29,7 +29,6 @@ function sortNameColumn(c1, c2) {
  */
 export default class TreatmentList extends React.Component {
   treatmentListener;
-  archivedTreatmentListener;
   table;
 
   constructor() {
@@ -50,14 +49,11 @@ export default class TreatmentList extends React.Component {
       createTreatmentVisible: false,
       editTreatmentVisible: false,
       treatmentToEdit: null,
-      archivedVisible: false,
-      selectedRowKeys: [],
     };
   }
 
   componentDidMount() {
     this.treatmentListener = TreatmentStore.addListener(this.receiveTreatments);
-    this.archivedTreatmentListener = TreatmentStore.addListener(this.receiveArchivedTreatments);
     this.loadTreatments();
     this.updateFilters();
     // Here we set the default sorted column
@@ -68,7 +64,6 @@ export default class TreatmentList extends React.Component {
 
   componentWillUnmount() {
     this.treatmentListener.remove();
-    this.archivedTreatmentListener.remove();
   }
 
   loadTreatments = () => {
@@ -78,25 +73,9 @@ export default class TreatmentList extends React.Component {
     TreatmentActions.reload().then(() => {
       this.setState({
         loading: false,
-        archivedVisible: false,
-        selectedRowKeys : [],
       });
     });
     this.TreatmentListener = TreatmentStore.addListener(this.receiveTreatments);
-  };
-
-  loadArchivedTreatments = () => {
-    this.setState({
-      loading: true,
-    });
-    TreatmentActions.reloadArchived().then(() => {
-      this.setState({
-        loading: false,
-        archivedVisible: true,
-        selectedRowKeys : [],
-      });
-    });
-    this.archivedTreatmentListener = TreatmentStore.addListener(this.receiveArchivedTreatments);
   };
 
   receiveTreatments = () => {
@@ -104,15 +83,6 @@ export default class TreatmentList extends React.Component {
     this.setState(
       {
         treatments
-      },
-      this.updateFilters
-    );
-  };
-
-  receiveArchivedTreatments = () => {
-    this.setState(
-      {
-        treatments: TreatmentStore.getArchivedTreatments()
       },
       this.updateFilters
     );
@@ -175,47 +145,6 @@ export default class TreatmentList extends React.Component {
     });
   };
 
-  archiving = (treatment, toasVisible) => {
-    const { archivedVisible } = this.state;
-    if (!treatment) return;
-    this.setState({
-      loading: true
-    });
-    return new Promise((resolve, reject) => {
-      TreatmentActions.archiving(treatment.id).then(newTreatment => {
-        resolve(newTreatment);
-        this.setState({
-          loading: false
-        });
-        if(toasVisible) {
-          ToastActions.createToastSuccess(
-            archivedVisible ? `Compétence " ${treatment.name} " rétablit` : `Compétence "${treatment.name} " archivé` 
-          );
-        }
-      }).catch(this.handleError);
-    })
-  };
-
-  archiveSelected = () => {
-    const { selectedRowKeys, archivedVisible } = this.state;
-    const promises = selectedRowKeys.map(r => {
-      this.setState({
-        loading: true
-      });
-      const treatment = archivedVisible ? TreatmentStore.getArchivedById(r) : TreatmentStore.getById(r);
-      this.archiving(treatment, false);
-    });
-    return Promise.all(promises).then(() => {
-      ToastActions.createToastSuccess(
-        archivedVisible ? "Compétences rétablis" : "Compétences archivés" 
-      );
-    });
-  };
-
-  onSelectChange = selectedRowKeys => {
-    this.setState({ selectedRowKeys });
-  };
-
   handleError = err => {
     this.setState({
       loading: false
@@ -229,31 +158,20 @@ export default class TreatmentList extends React.Component {
   };
 
   render() {
-    const { treatmentToEdit, loading, filteredTreatments, archivedVisible, selectedRowKeys } = this.state;
-    const hasSelected = selectedRowKeys.length > 0;
+    const { treatmentToEdit, loading, filteredTreatments } = this.state;
     return (
       <div className="treatment-list">
-        {!loading &&
-          SecurityService.isGranted(Resource.TREATMENT, Access.CREATE) && (
+        {!loading && (
+          //SecurityService.isGranted(Resource.TREATMENT, Access.CREATE) && (
             <Button
               type="primary"
               icon="plus"
               onClick={this.showCreateTreatmentModal}
+              style={{marginBottom: "10px"}}
             >
               <LocaleComponent transKey="treatment.add" />
             </Button>
         )}
-        {!loading &&
-          <Button
-            type="danger"
-            style={{color: !archivedVisible && "#f04134", marginBottom: "1%", float: "right"}}
-            ghost={!archivedVisible}
-            icon={archivedVisible ? "eye" : "eye-invisible"}
-            onClick={() => {archivedVisible ? this.loadTreatments() : this.loadArchivedTreatments()} }
-          >
-              {archivedVisible ? Locale.trans("archive.unarchived") : Locale.trans("archive.archived")}  
-          </Button>
-        }
         {this.renderTreatmentTable()}
 
         {!loading && (
@@ -266,11 +184,6 @@ export default class TreatmentList extends React.Component {
                   : "-50px"
             }}
           >
-            {selectedRowKeys.length > 0 && (
-              <Button icon={archivedVisible ? "eye" : "eye-invisible"} type="danger" onClick={this.archiveSelected} disabled={!hasSelected} loading={loading}>
-                {archivedVisible ? `Rétablir ${selectedRowKeys.length} compétence(s)` : `Archiver ${selectedRowKeys.length} compétence(s)`}
-              </Button>
-            )}
           </div>
         )}
 
@@ -288,17 +201,13 @@ export default class TreatmentList extends React.Component {
   }
 
   renderTreatmentTable() {
-    const { filters, filteredTreatments, selectedRowKeys, loading } = this.state;
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.onSelectChange,
-    };
+    const { filters, filteredTreatments, loading } = this.state;
     const columns = [
       {
         title: Locale.trans("treatment.name"),
         key: "name",
         sorter: sortNameColumn,
-        filterIcon: <FilterIcon active={filters.name.length > 0} />,
+        //filterIcon: <FilterIcon active={filters.name.length > 0} />, // @TODO: Debug and remove comment 
         render: this.renderTreatmentNameCell,
         filterDropdown: (
           <TableColumnFilter
@@ -319,7 +228,6 @@ export default class TreatmentList extends React.Component {
 
     return (
       <Table
-        rowSelection={rowSelection}
         dataSource={filteredTreatments}
         rowKey="id"
         columns={columns}
@@ -337,23 +245,6 @@ export default class TreatmentList extends React.Component {
   rendActionsCell = (treatment) => (
     <React.Fragment>
       <div className="actions-row">
-        {this.state.archivedVisible ? (
-          <Tooltip title={Locale.trans("archive.unarchive")}>
-            <Button
-              shape="circle"
-              icon="eye"
-              onClick={() => this.archiving(treatment, true)}
-            />
-          </Tooltip>
-        ) : (
-          <Tooltip title={Locale.trans("archive.action")}>
-            <Button
-              shape="circle"
-              icon="eye-invisible"
-              onClick={() => this.archiving(treatment, true)}
-            />
-          </Tooltip>
-        )}
         <Tooltip title={Locale.trans("edit")}>
           <Button
             type="primary"
@@ -367,6 +258,26 @@ export default class TreatmentList extends React.Component {
             }}
           />
         </Tooltip>
+        {/*<Tooltip title={Locale.trans("delete")}>
+          <Button
+            type="danger"
+            shape="circle"
+            icon="delete"
+            onClick={e => {
+              TreatmentActions.delete(treatment.id)
+              .then(() => {
+                  this.setState({
+                      fields: {},
+                      loading: false,
+                  });
+                  ToastActions.createToastSuccess(Locale.trans('treatment.delete.success', {name: treatment.name}));
+                  this.props.onCancel();
+              })
+              .catch(this.handleError);
+              return false;
+            }}
+          />
+          </Tooltip>*/}
       </div>
     </React.Fragment>
   );

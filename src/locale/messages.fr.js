@@ -99,9 +99,15 @@ export default {
     treatments: "Soins",
     treatment: {
       name: "Soin",
+      description: "Description",
       add: {
         _: "Ajouter un soin",
         success: "Soin __name__ créé.",
+        error: "Une erreur est survenue",
+      },
+      delete: {
+        _: "Supprimer un soin",
+        success: "Soin __name__ supprimé.",
         error: "Une erreur est survenue",
       },
       update: {
@@ -112,17 +118,24 @@ export default {
     },
     symptoms: "Symptomes",
     symptom: {
-      name: "Symptome",
+      name: "Symptôme",
+      description: "Description",
       add: {
-        _: "Ajouter un symptome",
-        success: "Symptome __name__ créé.",
+        _: "Ajouter un symptôme",
+        success: "Symptôme __name__ créé.",
+        error: "Une erreur est survenue",
+      },
+      delete: {
+        _: "Supprimer un symptôme",
+        success: "Symptôme __name__ supprimé.",
         error: "Une erreur est survenue",
       },
       update: {
-        _: "Modifier un symptome",
-        success: 'Symptome "__name__" modifiée',
+        _: "Modifier un symptôme",
+        success: 'Symptôme "__name__" modifiée',
         error: "Une erreur est survenue"
       },
+      treatments: "Soins",
     }
   },
 

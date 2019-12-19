@@ -1,50 +1,50 @@
 import dispatcher from 'dispatchers/AppDispatcher';
 import ActionsBase from 'actions/ActionsBase';
 
-import TreatmentConstants from 'constants/TreatmentConstants';
-import TreatmentService from 'services/TreatmentService';
+import SymptomConstants from 'constants/SymptomConstants';
+import SymptomService from 'services/SymptomService';
 
-class TreatmentActions extends ActionsBase {
-    create = (treatment) => {
+class SymptomActions extends ActionsBase {
+    create = (symptom) => {
         const $this = this;
         return new Promise((resolve, reject) => {
-            function handleSuccess(newTreatment) {
+            function handleSuccess(newSymptom) {
                 dispatcher.dispatch({
-                    type: TreatmentConstants.RECEIVE_TREATMENT,
+                    type: SymptomConstants.RECEIVE_SYMPTOM,
                     payload: {
-                        treatment: newTreatment.data,
+                        symptom: newSymptom.data,
                     },
                 });
-                resolve(newTreatment.data);
+                resolve(newSymptom.data);
             }
             function handleError(err) {
                 $this.handleError(err, reject);
             }
-            TreatmentService.post(treatment)
+            SymptomService.post(symptom)
                 .then(handleSuccess)
                 .catch(handleError);
         });
     };
 
-    edit = (treatmentId, treatment) => {
+    edit = (symptomId, symptom) => {
         const $this = this;
         return new Promise((
             resolve,
             reject
         ) => {
-            function handleSuccess(newTreatment) {
+            function handleSuccess(newSymptom) {
                 dispatcher.dispatch({
-                    type: TreatmentConstants.RECEIVE_TREATMENT,
+                    type: SymptomConstants.RECEIVE_SYMPTOM,
                     payload: {
-                        treatment: newTreatment.data,
+                        symptom: newSymptom.data,
                     },
                 });
-                resolve(newTreatment.data);
+                resolve(newSymptom.data);
             }
             function handleError(err) {
                 $this.handleError(err, reject);
             }
-            TreatmentService.patch(treatmentId, treatment)
+            SymptomService.patch(symptomId, symptom)
                 .then(handleSuccess)
                 .catch(handleError);
         });
@@ -55,7 +55,7 @@ class TreatmentActions extends ActionsBase {
         return new Promise((resolve, reject) => {
             function handleSuccess() {
                 dispatcher.dispatch({
-                    type: TreatmentConstants.DELETE_TREATMENT,
+                    type: SymptomConstants.DELETE_SYMPTOM,
                     payload: {
                         id,
                     },
@@ -65,7 +65,7 @@ class TreatmentActions extends ActionsBase {
             function handleError(err) {                
                 $this.handleError(err, reject);
             }
-            TreatmentService.remove(id)
+            SymptomService.remove(id)
                 .then(handleSuccess)
                 .catch(handleError);
         });
@@ -76,9 +76,9 @@ class TreatmentActions extends ActionsBase {
         return new Promise((resolve, reject) => {
             function handleSuccess(res) {
                 dispatcher.dispatch({
-                    type: TreatmentConstants.RECEIVE_TREATMENTS,
+                    type: SymptomConstants.RECEIVE_SYMPTOMS,
                     payload: {
-                        treatments: res.data.results,
+                        symptoms: res.data.results,
                     },
                 });
                 resolve();
@@ -86,17 +86,17 @@ class TreatmentActions extends ActionsBase {
             function handleError(err) {
                 $this.handleError(err, reject);
             }
-            TreatmentService.getAll()
+            SymptomService.getAll()
                 .then(handleSuccess)
                 .catch(handleError);
         });
     };
 
-    changeCurrentTreatmentId = (treatmentId) => new Promise((resolve, reject) => {
+    changeCurrentSymptomId = (symptomId) => new Promise((resolve, reject) => {
         dispatcher.dispatch({
-            type: TreatmentConstants.CHANGE_CURRENT_TREATMENT,
+            type: SymptomConstants.CHANGE_CURRENT_SYMPTOM,
             payload: {
-                treatmentId,
+                symptomId,
             },
         });
         resolve();
@@ -107,9 +107,9 @@ class TreatmentActions extends ActionsBase {
         return new Promise((resolve, reject) => {
             function handleSuccess(res) {
                 dispatcher.dispatch({
-                    type: TreatmentConstants.RECEIVE_TREATMENT,
+                    type: SymptomConstants.RECEIVE_SYMPTOM,
                     payload: {
-                        treatment: res.data,
+                        symptom: res.data,
                     },
                 });
                 resolve();
@@ -117,11 +117,11 @@ class TreatmentActions extends ActionsBase {
             function handleError(err) {
                 $this.handleError(err, reject);
             }
-            TreatmentService.getById(id)
+            SymptomService.getById(id)
                 .then(handleSuccess)
                 .catch(handleError);
         });
     };
 }
 
-export default new TreatmentActions();
+export default new SymptomActions();

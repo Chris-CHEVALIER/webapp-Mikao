@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Locale from 'locale/LocaleFactory';
 import FormItemBase from 'components/form-items/FormItemBase.jsx';
 import { Form, Input } from 'antd';
 

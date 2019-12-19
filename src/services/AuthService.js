@@ -45,8 +45,6 @@ class AuthService extends ServiceBase {
      */
     handleAuth(login, loginPromise) {
         return loginPromise.then((response) => {
-            console.log(response);
-            
             const accessToken = response.data.access;
             const refreshToken = response.data.refresh;
             //const user = response.user;

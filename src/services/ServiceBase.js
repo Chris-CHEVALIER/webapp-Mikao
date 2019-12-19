@@ -31,7 +31,6 @@ export default class ServiceBase {
         if (options.data) {
             query.data = JSON.stringify(options.data);
         }
-        console.log(query);
         return when(request(query));
     }
 }

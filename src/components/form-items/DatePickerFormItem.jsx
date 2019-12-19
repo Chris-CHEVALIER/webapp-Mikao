@@ -4,7 +4,7 @@ import { DatePicker } from 'components/FormFields';
 import { Form } from 'antd';
 
 import moment from 'moment';
-import DateConstants from '../../constants/DateConstants';
+import DateConstants from 'constants/DateConstants';
 
 export default class DatePickerFormItem extends FormItemBase {
     input;
