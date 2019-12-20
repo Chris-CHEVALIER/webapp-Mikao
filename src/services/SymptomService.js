@@ -40,9 +40,6 @@ class SymptomService extends ServiceBase {
      * @returns {Promise} A promise to handle the request ascynchronously.
      */
     post(symptom) {
-        console.log("POST");
-        
-        console.log(symptom);
         return axios({
             url: `${BaseUrlConstants.BASE_URL}symptoms/`,
             method: 'POST',
@@ -70,8 +67,6 @@ class SymptomService extends ServiceBase {
      * @returns {Promise} A promise to handle the request ascynchronously.
      */
     remove(id) {
-        console.log("remove", id);
-        
         return axios({
             url: `${BaseUrlConstants.BASE_URL}symptoms/${id}/`,
             method: 'DELETE',

@@ -4,47 +4,47 @@ import axios from 'axios';
 
 const URL = `${BaseUrlConstants.BASE_URL}`;
 
-class TreatmentService extends ServiceBase {
+class UserService extends ServiceBase {
     constructor() {
         super(URL);
     }
 
     /**
-     * Get a treatment by unique identifier.
-     * @param {number} treatmentId The identifier of the treatment.
+     * Get a user by unique identifier.
+     * @param {number} userId The identifier of the user.
      * @returns {Promise} A promise to handle the request ascynchronously.
      */
 
-    getById(treatmentId) {
+    getById(userId) {
         return axios({
-            url: `${BaseUrlConstants.BASE_URL}treatments/${treatmentId}`,
+            url: `${BaseUrlConstants.BASE_URL}users/${userId}`,
             method: 'GET',
         });
     }
     
     /**
-     * Get all treatments.
+     * Get all users.
      *
      * @returns {Promise} A promise to handle the request ascynchronously.
      */
     getAll() {
         return axios({
-            url: `${BaseUrlConstants.BASE_URL}treatments/`,
+            url: `${BaseUrlConstants.BASE_URL}users/`,
             method: "get",
             
         });
     }
 
     /**
-     * Post a new treatment.
-     * @param {Object} treatment The treatment to create.
+     * Post a new user.
+     * @param {Object} user The user to create.
      * @returns {Promise} A promise to handle the request ascynchronously.
      */
-    post(treatment) {
+    post(user) {
         return axios({
-            url: `${BaseUrlConstants.BASE_URL}treatments/`,
+            url: `${BaseUrlConstants.BASE_URL}users/`,
             method: 'POST',
-            data: treatment,
+            data: user,
         });
     }
 
@@ -56,23 +56,23 @@ class TreatmentService extends ServiceBase {
      */
     patch(id, patch) {
         return axios({
-            url: `${BaseUrlConstants.BASE_URL}treatments/${id}/`,
+            url: `${BaseUrlConstants.BASE_URL}users/${id}/`,
             method: 'PATCH',
             data: patch,
         });
     }
 
     /**
-     * Delete an existing host treatment.
+     * Delete an existing host user.
      * @param {number} id The identifier of the user.
      * @returns {Promise} A promise to handle the request ascynchronously.
      */
     remove(id) {
         return axios({
-            url: `${BaseUrlConstants.BASE_URL}treatments/${id}/`,
+            url: `${BaseUrlConstants.BASE_URL}users/${id}/`,
             method: 'DELETE',
         });
     }
 }
 
-export default new TreatmentService();
+export default new UserService();

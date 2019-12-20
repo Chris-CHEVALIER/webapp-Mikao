@@ -94,7 +94,19 @@ export default {
       postalCode: "Code Postal",
       city: "Ville",
       role: "Role",
-      type: "Type"
+      type: "Type",
+      add: {
+        _: "Ajouter un utilisateur",
+        error: "Une erreur est survenue",
+      },
+      delete: {
+        _: "Supprimer un utilisateur",
+        error: "Une erreur est survenue",
+      },
+      update: {
+        _: "Modifier un utilisateur",
+        error: "Une erreur est survenue"
+      },
     },
     treatments: "Soins",
     treatment: {
