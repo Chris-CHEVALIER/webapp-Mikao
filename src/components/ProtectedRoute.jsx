@@ -7,12 +7,15 @@ export default class PrivateRoute extends React.Component {
     componentDidMount() {
         this.loginListener = LoginStore.addListener(this.receiveLogin);
     }
+
     componentWillUnmount() {
         this.loginListener.remove();
     }
+
     receiveLogin = () => {
         this.forceUpdate();
     };
+    
     render() {
         const { component: Component, ...rest } = this.props;
         return (

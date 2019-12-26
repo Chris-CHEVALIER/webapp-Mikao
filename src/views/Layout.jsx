@@ -5,7 +5,10 @@ import ScrollArea from "react-scrollbar";
 import { Button, Menu, Icon, Layout, Popover, Avatar } from "antd";
 
 import LoginActions from "actions/LoginActions";
-//import LoginStore from "stores/LoginStore";
+import LoginStore from "stores/LoginStore";
+
+import UserActions from "actions/UserActions";
+import UserStore from "../stores/UserStore";
 
 import Home from "views/Home.jsx";
 import Configuration from "views/Configuration.jsx";
@@ -16,10 +19,41 @@ const { Header, Content, Sider } = Layout;
 export default class AppLayout extends React.Component {
   constructor() {
     super();
+    const users = UserStore.getUsers();
     this.state = {
-      menuCollapsed: localStorage.getItem("sidebar-collapsed") === "true"
+      menuCollapsed: localStorage.getItem("sidebar-collapsed") === "true",
+      loading: !users.length,
+      users,
     };
   }
+
+  componentDidMount() {
+    this.userListener = UserStore.addListener(this.receiveUsers);
+    this.loadUsers();
+  }
+
+  componentWillUnmount() {
+    this.userListener.remove();
+  }
+
+  loadUsers = () => {
+    this.setState({
+      loading: true
+    });
+    UserActions.reload().then(() => {
+      this.setState({
+        loading: false,
+      });
+    });
+    this.UserListener = UserStore.addListener(this.receiveUsers);
+  };
+
+  receiveUsers = () => {
+    const users = UserStore.getUsers();
+    this.setState({
+        users
+    });
+  };
 
   logout = () => {
     LoginActions.logoutUser();
@@ -40,15 +74,15 @@ export default class AppLayout extends React.Component {
   };
 
   render() {
-    const user = {"firstName":"Chris", "lastName": "Chevalier"} // LoginStore.getUser(); // @TODO: Récupérer correctement l'utilisateur connecté
-
+    if(!this.state.loading) {
+      const user = UserStore.getById(LoginStore.getUser().user_id);
     const selectedMenu = this.props.location.pathname;
 
-    const firstname = user.firstName.replace(
+    const first_name = user.first_name.replace(
       /\w\S*/g,
       tStr => tStr.charAt(0).toUpperCase() + tStr.substr(1).toLowerCase()
     );
-    const fullName = `${firstname} ${user.lastName.toUpperCase()}`;
+    const fullName = `${first_name} ${user.last_name.toUpperCase()}`;
 
     return (
       <Layout style={{ minHeight: "100vh" }}>
@@ -103,8 +137,8 @@ export default class AppLayout extends React.Component {
               placement="bottomRight"
             >
               <Avatar size="large" className="profile-btn">
-                {user.firstName.charAt(0).toUpperCase()}
-                {user.lastName.charAt(0).toUpperCase()}
+                {user.first_name.charAt(0).toUpperCase()}
+                {user.last_name.charAt(0).toUpperCase()}
               </Avatar>
             </Popover>
           </Header>
@@ -119,5 +153,11 @@ export default class AppLayout extends React.Component {
         </Layout>
       </Layout>
     );
+  } else {
+    return (<div></div>);
   }
+    }
+    
+    
+    
 }

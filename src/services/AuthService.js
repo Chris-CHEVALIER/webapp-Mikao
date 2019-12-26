@@ -1,9 +1,9 @@
-import ServiceBase from 'services/ServiceBase';
+//import ServiceBase from 'services/ServiceBase';
 import BaseUrlConstants from 'constants/BaseUrlConstants';
 import LoginActions from 'actions/LoginActions';
 import axios from 'axios';
 
-class AuthService extends ServiceBase {
+class AuthService /*extends ServiceBase*/ {
     /**
      * Try to log the user to the application.
      * @param  {string} login    The login or email.
@@ -11,24 +11,15 @@ class AuthService extends ServiceBase {
      * @return {Promise}         A promise of the request.
      */
     login(login, password) {
-        let url = `${BaseUrlConstants.BASE_URL}token/`;
         let data = new FormData();
         data.set('username', login);
         data.set('password', password);
-        return this.handleAuth(login, axios({
+        return this.handleAuth(axios({
                 method: 'post',
-                url,
-                headers: {'Content-Type': 'multipart/form-data' },
+                url: `${BaseUrlConstants.BASE_URL}token/`,
                 data,
             })
         );
-        /*return this.handleAuth(login,
-            this.execute({
-                url: `${BaseUrlConstants.BASE_URL}token/`,
-                method: 'POST',
-                data,
-            }),
-        );*/
     }
 
     /**
@@ -43,13 +34,10 @@ class AuthService extends ServiceBase {
      * @param  {Promise} loginPromise The promise of the API request.
      * @return {Promise}              The same promise, to allow catching error after.
      */
-    handleAuth(login, loginPromise) {
+    handleAuth(loginPromise) {
         return loginPromise.then((response) => {
-            const accessToken = response.data.access;
-            const refreshToken = response.data.refresh;
-            //const user = response.user;
-            //const securityContext = response.securityContext;
-            LoginActions.loginUser(accessToken, refreshToken, login);
+            const jwt = response.data.access;
+            LoginActions.loginUser(jwt);
             return true;
         });
     }

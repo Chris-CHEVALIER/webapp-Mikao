@@ -10,35 +10,20 @@ class LoginActions {
   onLoginComplete = () => {};
   onLogoutComplete = () => {};
 
-  loginUser = (accessToken, refreshToken, login) => {
-    LocalStorage.setItem('accessToken', accessToken);
-    LocalStorage.setItem('refreshToken', refreshToken);
-
-    TokenContainer.set(accessToken);
-    
-    const savedAccessToken = LocalStorage.getItem("accessToken");
-    //const savedRefreshToken = LocalStorage.getItem("refreshToken");
-
+  loginUser = (jwt) => {
+    const savedJwt = LocalStorage.getItem("jwt");
+    TokenContainer.set(jwt);
+    localStorage.setItem('jwt', jwt);
+    // Send the action to login store through the Dispatcher
     AppDispatcher.dispatch({
       type: Login.LOGIN_USER,
-      payload: {
-        accessToken,
-        refreshToken,
-        //securityContext,
-        login
-      }
+      jwt: jwt
     });
-
-    if (savedAccessToken !== accessToken) {
-      LocalStorage.setItem("accessToken", accessToken);
-      //LocalStorage.setItem("user", JSON.stringify(user));
-      //LocalStorage.setItem("security-context", JSON.stringify(securityContext));
+    // We save the JWT in localStorage to keep the user authenticated. We’ll learn more about this later.
+    if (savedJwt !== jwt) {
+      LocalStorage.setItem("jwt", jwt);
     }
-    if (login) {
-      LocalStorage.setItem("login", login);
-    }
-    LocalStorage.setItem("created-at", Date.now().toString());
-  };
+  }
 
   loginUserIfRemembered = () =>
     // Check is user is remembered
