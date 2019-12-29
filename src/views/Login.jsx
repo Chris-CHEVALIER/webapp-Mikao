@@ -52,8 +52,7 @@ export default class Login extends React.Component {
     this.setState({
       loading: false
     });
-    const resp = JSON.parse(err.response);
-    ToastActions.createToastError(resp.message);
+    ToastActions.createToastError("Une erreur s'est produite");
   };
 
   handleFormChange = changedFields => {

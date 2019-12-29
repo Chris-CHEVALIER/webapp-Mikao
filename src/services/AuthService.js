@@ -14,7 +14,7 @@ class AuthService /*extends ServiceBase*/ {
         let data = new FormData();
         data.set('username', login);
         data.set('password', password);
-        return this.handleAuth(axios({
+        return this.handleAuth(login, axios({
                 method: 'post',
                 url: `${BaseUrlConstants.BASE_URL}token/`,
                 data,
@@ -34,10 +34,12 @@ class AuthService /*extends ServiceBase*/ {
      * @param  {Promise} loginPromise The promise of the API request.
      * @return {Promise}              The same promise, to allow catching error after.
      */
-    handleAuth(loginPromise) {
+    handleAuth(login, loginPromise) {
         return loginPromise.then((response) => {
+            console.log(response);
+            
             const jwt = response.data.access;
-            LoginActions.loginUser(jwt);
+            LoginActions.loginUser(jwt, login);
             return true;
         });
     }

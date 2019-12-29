@@ -10,31 +10,36 @@ class LoginActions {
   onLoginComplete = () => {};
   onLogoutComplete = () => {};
 
-  loginUser = (jwt) => {
+  loginUser = (jwt, login) => {
     const savedJwt = LocalStorage.getItem("jwt");
     TokenContainer.set(jwt);
-    localStorage.setItem('jwt', jwt);
     // Send the action to login store through the Dispatcher
     AppDispatcher.dispatch({
       type: Login.LOGIN_USER,
-      jwt: jwt
+      jwt: jwt,
+      login: login
     });
     // We save the JWT in localStorage to keep the user authenticated. We’ll learn more about this later.
     if (savedJwt !== jwt) {
       LocalStorage.setItem("jwt", jwt);
+    }
+    if (login) {
+      LocalStorage.setItem("login", login);
     }
   }
 
   loginUserIfRemembered = () =>
     // Check is user is remembered
     new Promise((resolve, reject) => {
+      console.log("loginUserIfRemembered");
+      
         this.isUserRemembered()
-          .then(({ accessToken, user/*, securityContext */}) => {
-            const isRemembered = !!accessToken && !!user /*&& !!securityContext*/;
+          .then(({ jwt, user/*, securityContext */}) => {
+            const isRemembered = !!jwt /*&& !!user && !!securityContext*/;
             if (isRemembered) {
               this.loginUser(
-                accessToken,
-                JSON.parse(user),
+                jwt,
+                //JSON.parse(user),
                 //JSON.parse(securityContext)
               );
             }
@@ -54,8 +59,8 @@ class LoginActions {
           }
         });
       });
-      LocalStorage.getItem("accessToken")
-        .then(accessToken => {
+      LocalStorage.getItem("jwt")
+        .then(jwt => {
           LocalStorage.getItem("user")
             .then(user => {
               //LocalStorage.getItem("security-context")
@@ -63,7 +68,7 @@ class LoginActions {
                   LocalStorage.getItem("login")
                     .then(login => {
                       resolve({
-                        accessToken,
+                        jwt,
                         user,
                         //securityContext,
                         login
@@ -77,8 +82,7 @@ class LoginActions {
         });
 
   logoutUser = () => {
-    LocalStorage.removeItem("accessToken");
-    LocalStorage.removeItem("refreshToken");
+    LocalStorage.removeItem("jwt");
     LocalStorage.removeItem("user");
     //LocalStorage.removeItem("security-context");
     LocalStorage.removeItem("created-at");
