@@ -22,7 +22,7 @@
     "react-custom-properties": "^1.2.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0",
+    "react-scripts": "5.0.1",
     "react-scrollbar": "^0.5.6",
     "react-virtualized": "^9.21.2",
     "reqwest": "^2.0.5",
